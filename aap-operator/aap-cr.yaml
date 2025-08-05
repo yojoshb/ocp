@@ -1,0 +1,37 @@
+---
+apiVersion: aap.ansible.com/v1alpha1
+kind: AnsibleAutomationPlatform
+metadata:
+  name: lab
+  namespace: aap
+spec:
+  eda:
+    disabled: false
+  route_tls_termination_mechanism: Edge
+  no_log: true
+  redis_mode: standalone
+  image_pull_policy: IfNotPresent
+  
+  lightspeed:
+    disabled: true
+  
+  extra_settings:
+    - setting: REDIRECT_IS_HTTPS
+      value: '"True"'
+  
+  hub:
+    disabled: false
+    file_storage_size: 100Gi
+    file_storage_storage_class: nfs
+    storage_type: file
+  
+  api:
+    log_level: INFO
+    replicas: 1
+  
+  database:
+    idle_disabled: false
+    postgres_data_volume_init: false
+  
+  controller:
+    disabled: false
