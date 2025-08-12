@@ -1,0 +1,4 @@
+
+ldapsearch -x Y ldap://idm.lab.io:389/cn=users,cn=accounts,dc=lab,dc=io?uid
+
+uid=ldap_bind,cn=users,cn=accounts,dc=lab,dc=io
