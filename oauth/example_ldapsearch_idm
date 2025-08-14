@@ -1,4 +1,5 @@
-
+# Example of a ldapsearch against an IdM/IPA ldap server
 ldapsearch -x Y ldap://idm.lab.io:389/cn=users,cn=accounts,dc=lab,dc=io?uid
 
+# Values found from the query for the bind account to utilize
 uid=ldap_bind,cn=users,cn=accounts,dc=lab,dc=io
