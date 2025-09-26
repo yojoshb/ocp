@@ -1,0 +1,60 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    alpha.image.policy.openshift.io/resolve-names: '*'
+    app.openshift.io/route-disabled: 'false'
+  name: vaultwarden
+  namespace: vaultwarden
+  labels:
+    app: vaultwarden
+    app.kubernetes.io/component: vaultwarden
+    app.kubernetes.io/instance: vaultwarden
+    app.kubernetes.io/name: vaultwarden
+    app.kubernetes.io/part-of: vaultwarden-server
+    app.openshift.io/runtime-namespace: vaultwarden
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: vaultwarden
+  template:
+    metadata:
+      labels:
+        app: vaultwarden
+        deployment: vaultwarden
+    spec:
+      volumes:
+        - name: vaultwarden-data
+          persistentVolumeClaim:
+            claimName: vaultwarden-data
+      containers:
+        - resources: {}
+          terminationMessagePath: /dev/termination-log
+          name: vaultwarden
+          env:
+            - name: ROCKET_PORT
+              value: '8080'
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 3012
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: vaultwarden-data
+              mountPath: /data
+          terminationMessagePolicy: File
+          image: 'registry.lab.io:8443/library/vaultwarden@sha256:b25f6069c79a4a913e7a72b5b43b5e9ac1ab1d2b5bc0cf88bed9c2bc349213c4'
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600

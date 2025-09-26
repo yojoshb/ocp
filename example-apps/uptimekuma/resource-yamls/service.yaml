@@ -1,0 +1,27 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: uptime-kuma
+  namespace: uptime-kuma
+  labels:
+    app: uptime-kuma
+    app.kubernetes.io/component: uptime-kuma 
+    app.kubernetes.io/instance: uptime-kuma
+    app.kubernetes.io/name: uptime-kuma
+    app.kubernetes.io/part-of: uptime-kuma-server
+    app.kubernetes.io/runtime-version: latest
+spec:
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: 80-tcp
+      protocol: TCP
+      port: 80
+      targetPort: 3001
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: uptime-kuma
+    deployment: uptime-kuma

@@ -1,0 +1,24 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: vaultwarden
+  namespace: vaultwarden
+  labels:
+    app: vaultwarden
+    app.kubernetes.io/component: vaultwarden 
+    app.kubernetes.io/instance: vaultwarden
+    app.kubernetes.io/name: vaultwarden
+    app.kubernetes.io/part-of: vaultwarden-server
+    app.kubernetes.io/runtime-version: latest
+spec:
+  host: vaultwarden.apps.ocp.lab.io
+  to:
+    kind: Service
+    name: vaultwarden
+    weight: 100
+  port:
+    targetPort: 80-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

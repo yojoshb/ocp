@@ -1,0 +1,57 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    alpha.image.policy.openshift.io/resolve-names: '*'
+    app.openshift.io/route-disabled: 'false'
+  name: uptime-kuma
+  namespace: uptime-kuma
+  labels:
+    app: uptime-kuma
+    app.kubernetes.io/component: uptime-kuma
+    app.kubernetes.io/instance: uptime-kuma
+    app.kubernetes.io/name: uptime-kuma
+    app.kubernetes.io/part-of: uptime-kuma-server
+    app.openshift.io/runtime-namespace: uptime-kuma
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uptime-kuma
+  template:
+    metadata:
+      labels:
+        app: uptime-kuma
+        deployment: uptime-kuma
+    spec:
+      serviceAccountName: uptime-kuma-sa
+      volumes:
+        - name: uptime-kuma-data
+          persistentVolumeClaim:
+            claimName: uptime-kuma-data
+      containers:
+        - resources: {}
+          terminationMessagePath: /dev/termination-log
+          name: uptime-kuma
+          ports:
+            - containerPort: 3001
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: uptime-kuma-data
+              mountPath: /app/data
+          terminationMessagePolicy: File
+          image: 'registry.lab.io:8443/library/uptime-kuma@sha256:4290b9aab81d6ab5e2c0b6b2b4c64b5a6b6302617f131b2beb040468594a32e7'
+      restartPolicy: Always
+      serviceAccount: uptime-kuma-sa
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
