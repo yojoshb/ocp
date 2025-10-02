@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mirror-registry-config
+  namespace: multicluster-engine
+  labels:
+    app: assisted-service
+data:
+  ca-bundle.crt: |
+    -----BEGIN CERTIFICATE-----
+    MIIH0DCCBbigAwIBAgIUV...
+    -----END CERTIFICATE-----
+  registries.conf: |
+    unqualified-search-registries = ["registry.lab.io:8443", "registry.access.redhat.com", "quay.io", "docker.io"]
+    [[registry]]
+      prefix = ""
+      location = "quay.io/openshift-release-dev/ocp-release"
+      mirror-by-digest-only = true
+      [[registry.mirror]]
+        location = "registry.lab.io:8443/ocp/openshift/release-images"
+
+    [[registry]]
+      prefix = ""
+      location = "quay.io/openshift-release-dev/ocp-v4.0-art-dev"
+      mirror-by-digest-only = true
+      [[registry.mirror]]
+        location = "registry.lab.io:8443/ocp/openshift/release"
+    
+    [[registry]]
+      prefix = ""
+      location = "registry.redhat.io/multicluster-engine"
+      mirror-by-digest-only = true
+      [[registry.mirror]]
+        location = "registry.lab.io:8443/ocp/multicluster-engine"
+
+    [[registry]]
+      prefix = ""
+      location = "registry.redhat.io/rhacm2"
+      mirror-by-digest-only = true
+      [[registry.mirror]]
+        location = "registry.lab.io:8443/ocp/rhacm2"
+

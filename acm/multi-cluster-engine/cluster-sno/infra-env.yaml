@@ -1,0 +1,47 @@
+kind: Secret
+apiVersion: v1
+metadata:
+  name: pullsecret-cluster-sno-1
+  namespace: cluster-sno-1
+# Pull secret for registry
+data:
+  '.dockerconfigjson': 'eyJhdXRocyI6eyJyZWdpc3Rye....'
+type: 'kubernetes.io/dockerconfigjson'
+
+---
+apiVersion: agent-install.openshift.io/v1beta1
+kind: InfraEnv
+metadata:
+  name: cluster-sno-1
+  namespace: cluster-sno-1
+  labels:
+    agentclusterinstalls.extensions.hive.openshift.io/location: lab
+    networkType: static
+spec:
+  agentLabels:
+    'agentclusterinstalls.extensions.hive.openshift.io/location': lab
+  pullSecretRef:
+    name: pullsecret-cluster-sno-1
+  # SSH pubkey for troubleshooting
+  sshAuthorizedKey: ssh-rsa AAAAB3NzaC1yc2EAAA....
+  additionalNTPSources:
+    - 10.1.1.251
+  nmStateConfigLabelSelector:	
+    matchLabels:	
+      nmstate-label: cluster-sno-nmstate # Must match the label specified in the nmstate.yaml
+  cpuArchitecture: x86_64
+  osImageVersion: '4.19'
+
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: capi-provider-role
+  namespace: cluster-sno-1
+rules:
+  - verbs:
+      - '*'
+    apiGroups:
+      - agent-install.openshift.io
+    resources:
+      - agents

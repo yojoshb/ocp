@@ -1,0 +1,33 @@
+apiVersion: agent-install.openshift.io/v1beta1
+kind: NMStateConfig
+metadata:
+  name: cluster-sno-nmstate
+  namespace: cluster-sno-1
+  labels:
+    nmstate-label: cluster-sno-nmstate
+spec:
+  config:
+    interfaces:
+      - name: eth0
+        type: ethernet
+        state: up
+        mac-address: 00:50:56:AF:F3:EA
+        ipv4:
+          enabled: true
+          address:
+            - ip: 10.1.1.60
+              prefix-length: 24
+          dhcp: false
+    dns-resolver:
+      config:
+        server:
+          - 10.1.1.254
+    routes:
+      config:
+        - destination: 0.0.0.0/0
+          next-hop-address: 10.1.1.254
+          next-hop-interface: eth0
+          table-id: 254
+  interfaces:
+    - name: "eth0"
+      macAddress: "00:50:56:AF:F3:EA"

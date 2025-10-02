@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: assisted-service-config
+  namespace: multicluster-engine
+  labels:
+    app: assisted-service
+data:
+  LOG_LEVEL: "debug"
+  AUTH_TYPE: "none"
+  SKIP_CERT_VERIFICATION: "true" # Needed due to issues with mounting CA certs
+  ISO_IMAGE_TYPE: "full-iso"
+  NO_PROXY: ".lab.io,192.168.0.0/16,172.16.0.0/12,10.0.0.0/8,localhost,127.0.0.1,.svc,.local" # Let MCE know never to proxy your domain(s)

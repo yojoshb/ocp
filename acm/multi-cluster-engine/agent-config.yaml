@@ -1,0 +1,38 @@
+apiVersion: agent-install.openshift.io/v1beta1
+kind: AgentServiceConfig
+metadata:
+  name: agent
+  annotations:
+    unsupported.agent-install.openshift.io/assisted-service-configmap: "assisted-service-config" # The ConfigMap with env settings
+    unsupported.agent-install.openshift.io/assisted-image-service-skip-verify-tls: "true"
+    unsupported.agent-install.openshift.io/assisted-service-allow-unrestricted-image-pulls: "true" # Not yet in upstream, this will help with unsigned images in disconnected env
+spec:
+  databaseStorage:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 10Gi
+  filesystemStorage:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 50Gi
+  imageStorage:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 50Gi
+
+  # The ConfigMap with the mirror config
+  mirrorRegistryRef:
+    name: mirror-registry-config
+  # Locations for OS Images, from HTTP server set up in your env
+  osImages:
+    - openshiftVersion: "4.19"
+      version: "419.10.202508252211-0"
+      url: "http://registry.lab.io/files/rhcos/4.19/rhcos-live-iso.x86_64.iso"
+      rootFSUrl: "http://registry.lab.io/files/rhcos/4.19/rhcos-live-rootfs.x86_64.img"
+      cpuArchitecture: x86_64

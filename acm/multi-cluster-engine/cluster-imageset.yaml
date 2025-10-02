@@ -1,0 +1,22 @@
+---
+apiVersion: hive.openshift.io/v1
+kind: ClusterImageSet
+metadata:
+  name: openshift-v41910
+  labels:
+    channel: stable
+    visible: 'true'
+spec:
+  releaseImage: registry.lab.io:8443/ocp/openshift/release-images:4.19.10-x86_64
+
+# Add as many imagesets as you need
+---
+apiVersion: hive.openshift.io/v1
+kind: ClusterImageSet
+metadata:
+  name: openshift-v41824
+  labels:
+    channel: stable
+    visible: 'true'
+spec:
+  releaseImage: registry.lab.io:8443/ocp/openshift/release-images:4.18.24-x86_64
