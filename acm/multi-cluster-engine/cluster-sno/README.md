@@ -23,7 +23,7 @@ oc apply -f infra-env.yaml
 - The agent.service will most likely be failing to pull the multi-cluster-engine images to register the host with ACM. SSH into the host(s) and remove the redhat configs out of `/etc/containers/policy.json`
 
 Change this:
-```yaml
+```json
 # /etc/containers/policy.json
 {
     "default": [
@@ -60,7 +60,7 @@ Change this:
 ```
 
 To this:
-```yaml
+```json
 # /etc/containers/policy.json
 {
     "default": [
