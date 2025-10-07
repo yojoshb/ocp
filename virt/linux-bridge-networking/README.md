@@ -1,4 +1,4 @@
-## Quick example of a bridge added to a additional NIC on worker nodes in the namespace `virtual-machines`
+## Quick example of a bridge added to a additional NIC on worker nodes
 
 - vm-nncp.yaml: NodeNetworkConfigurationPolicy used to set up the interface `enp6s21` as a simple bridge port `vmbr0`
 

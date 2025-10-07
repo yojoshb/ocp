@@ -17,7 +17,7 @@ spec:
         allow-extra-patch-ports: true
         options:
           stp: false
-          mcast-snooping-enable: true # Default is false 
+          mcast-snooping-enable: true # Enable multicast snooping, default is false 
         port:
         - name: ens224
     ovn:

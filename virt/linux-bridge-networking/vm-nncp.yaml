@@ -2,7 +2,7 @@ apiVersion: nmstate.io/v1
 kind: NodeNetworkConfigurationPolicy
 metadata:
   name: vmbr0-enp6s21-policy
-  namespace: virtual-machines 
+  namespace: default
 spec:
   nodeSelector:
     node-role.kubernetes.io/worker: ""

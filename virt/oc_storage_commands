@@ -4,8 +4,11 @@ oc patch storageclass lvms-vg1 -p '{"metadata": {"annotations": {"storageclass.k
 # Optionally, set the clusterwide default storageclass, you can only have one
 oc patch storageclass lvms-vg1 -p '{"metadata": {"annotations": {"storageclass.kubernetes.io/is-default-class": "true"}}}'
 
-# Edits to the storage profile. lvms operator can do block and filesystem, as well as 'csi-clone' which is faster than 'copy'
-$ oc edit storageprofiles lvms-vg1
+# After the KubeVirt Operator is installed, edit the storageprofile. lvms operator can do block and filesystem, as well as 'csi-clone' which is faster than 'copy'
+
+oc edit storageprofiles lvms-vg1
+
+```
 # Add to the spec, example below
 spec:
   claimPropertySets:
@@ -16,3 +19,4 @@ spec:
     - ReadWriteOnce
     volumeMode: Filesystem
   cloneStrategy: csi-clone
+```

@@ -4,14 +4,14 @@ metadata:
   annotations:
     description: VLAN 10 connection for VMs
   name: vlan10
-  namespace: virtual-machines
+  namespace: default
 spec:
   config: |-
     {
       "cniVersion": "0.4.0", 
-      "name": "localnet-trunk", 
+      "name": "localnet-trunk",
       "topology": "localnet", 
-      "netAttachDefName": "virtual-machines/vlan10",
+      "netAttachDefName": "default/vlan10",
       "physicalNetworkName": "localnet-trunk",
       "type": "ovn-k8s-cni-overlay",
       "vlanID": 10
