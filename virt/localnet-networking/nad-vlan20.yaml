@@ -1,0 +1,18 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  annotations:
+    description: VLAN 20 connection for VMs
+  name: vlan20
+  namespace: virtual-machines
+spec:
+  config: |-
+    {
+      "cniVersion": "0.4.0", 
+      "name": "localnet-trunk", 
+      "topology": "localnet", 
+      "netAttachDefName": "virtual-machines/vlan20",
+      "physicalNetworkName": "localnet-trunk",
+      "type": "ovn-k8s-cni-overlay",
+      "vlanID": 20
+    }
