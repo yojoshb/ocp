@@ -1,0 +1,27 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: vaultwarden
+  namespace: vaultwarden
+  labels:
+    app: vaultwarden
+    app.kubernetes.io/component: vaultwarden
+    app.kubernetes.io/instance: vaultwarden
+    app.kubernetes.io/name: vaultwarden
+    app.kubernetes.io/part-of: vaultwarden-server
+    app.kubernetes.io/runtime-version: latest
+spec:
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: 80-tcp
+      protocol: TCP
+      port: 80
+      targetPort: 8080
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: vaultwarden
+    deployment: vaultwarden

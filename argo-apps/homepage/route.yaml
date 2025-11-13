@@ -1,0 +1,24 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: homepage
+  namespace: homepage
+  labels:
+    app: homepage
+    app.kubernetes.io/component: homepage 
+    app.kubernetes.io/instance: homepage
+    app.kubernetes.io/name: homepage
+    app.kubernetes.io/part-of: homepage-server
+    app.kubernetes.io/runtime-version: latest
+spec:
+  host: home.apps.ocp.lab.io # The route url for your service
+  to:
+    kind: Service
+    name: homepage
+    weight: 100
+  port:
+    targetPort: 80-tcp
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

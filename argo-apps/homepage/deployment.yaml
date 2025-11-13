@@ -1,0 +1,68 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  annotations:
+    alpha.image.policy.openshift.io/resolve-names: '*'
+    app.openshift.io/route-disabled: 'false'
+  name: homepage
+  namespace: homepage
+  labels:
+    app: homepage
+    app.kubernetes.io/component: homepage
+    app.kubernetes.io/instance: homepage
+    app.kubernetes.io/name: homepage
+    app.kubernetes.io/part-of: homepage-server
+    app.openshift.io/runtime-namespace: homepage
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homepage
+  template:
+    metadata:
+      labels: # Labels to use for service hook
+        app: homepage
+        deployment: homepage
+    spec:
+      volumes:
+        - name: homepage-html # configMap conaining the raw html, you can add more configMaps for javascript, css, etc
+          configMap:
+            name: homepage-html
+        - name: nginx-autoindex-conf # configMap for extra nginx settings
+          configMap:
+            name: nginx-autoindex-conf
+        - name: homepage-data # PVC claim for NFS data that the nginx deployment can access/serve
+          persistentVolumeClaim:
+            claimName: nfs-homepage
+      containers:
+        - resources: {}
+          terminationMessagePath: /dev/termination-log
+          name: homepage
+          command: ["/usr/libexec/s2i/run"] # This image is built using source2image, so using it as a regualar runtime container requires the correct entrypoint command
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts: # Volumes passed to the container
+            - name: homepage-html
+              mountPath: /opt/app-root/src
+            - name: nginx-autoindex-conf
+              mountPath: /opt/app-root/etc/nginx.default.d/
+            - name: homepage-data
+              mountPath: /opt/app-root/src/ocp
+          terminationMessagePolicy: File
+          image: 'registry.lab.io:8443/library/nginx-126@sha256:c4deb4662fe53fe3d9776a4b4b8d48dd8675019256a2576086cce2a6d4139777' # Use the image you want, check the README for the image this is based on
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
