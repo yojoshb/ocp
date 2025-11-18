@@ -1,0 +1,90 @@
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: ceph-public-net-shim-compute-1
+  namespace: openshift-storage
+spec:
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+    kubernetes.io/hostname: m1.cluster.lab.lan
+  desiredState:
+    interfaces:
+      - name: odf-pub-shim
+        description: Shim interface used to connect host to OpenShift Data Foundation public Multus network
+        type: mac-vlan
+        state: up
+        mac-vlan:
+          base-iface: enp6s19
+          mode: bridge
+          promiscuous: true
+        ipv4:
+          enabled: true
+          dhcp: false
+          address:
+            - ip: 192.168.252.1
+              prefix-length: 23
+    routes:
+      config:
+        - destination: 192.168.0.0/16
+          next-hop-interface: odf-pub-shim
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: ceph-public-net-shim-compute-2
+  namespace: openshift-storage
+spec:
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+    kubernetes.io/hostname: m2.cluster.lab.lan
+  desiredState:
+    interfaces:
+      - name: odf-pub-shim
+        description: Shim interface used to connect host to OpenShift Data Foundation public Multus network
+        type: mac-vlan
+        state: up
+        mac-vlan:
+          base-iface: enp6s19 
+          mode: bridge
+          promiscuous: true
+        ipv4:
+          enabled: true
+          dhcp: false
+          address:
+            - ip: 192.168.252.2
+              prefix-length: 23
+    routes:
+      config:
+        - destination: 192.168.0.0/16
+          next-hop-interface: odf-pub-shim
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: ceph-public-net-shim-compute-3
+  namespace: openshift-storage
+spec:
+  nodeSelector:
+    node-role.kubernetes.io/worker: ""
+    kubernetes.io/hostname: m3.cluster.lab.lan 
+  desiredState:
+    interfaces:
+      - name: odf-pub-shim
+        description: Shim interface used to connect host to OpenShift Data Foundation public Multus network
+        type: mac-vlan
+        state: up
+        mac-vlan:
+          base-iface: enp6s19
+          mode: bridge
+          promiscuous: true
+        ipv4:
+          enabled: true
+          dhcp: false
+          address:
+            - ip: 192.168.252.3
+              prefix-length: 23
+    routes:
+      config:
+        - destination: 192.168.0.0/16
+          next-hop-interface: odf-pub-shim

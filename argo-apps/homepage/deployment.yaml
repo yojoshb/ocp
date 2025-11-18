@@ -53,7 +53,7 @@ spec:
             - name: homepage-data
               mountPath: /opt/app-root/src/ocp
           terminationMessagePolicy: File
-          image: 'registry.lab.io:8443/library/nginx-126@sha256:c4deb4662fe53fe3d9776a4b4b8d48dd8675019256a2576086cce2a6d4139777' # Use the image you want, check the README for the image this is based on
+          image: 'registry.redhat.io/ubi9/nginx-126@sha256:f9ebbf58f65d377b0522ff8eaa37555d49fa20237a899f8ae5d62b2d3bc67c06' # Use the image you want, check the README for the image this is based on
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
