@@ -2,38 +2,46 @@
 apiVersion: aap.ansible.com/v1alpha1
 kind: AnsibleAutomationPlatform
 metadata:
-  name: lab
+  name: aap
   namespace: aap
 spec:
   route_tls_termination_mechanism: Edge
   no_log: true
   redis_mode: standalone
   image_pull_policy: IfNotPresent
-  
-  extra_settings:
-    - setting: REDIRECT_IS_HTTPS
-      value: '"True"'
-  
-  hub:
-    disabled: false
-    file_storage_size: 100Gi
-    file_storage_storage_class: nfs
-    storage_type: file
-  
+
   api:
     log_level: INFO
     replicas: 1
   
+  extra_settings:
+    - setting: REDIRECT_IS_HTTPS
+      value: '"True"'
+
+  # Optional: Will create a service and route automatically based on the 'metadata: name'
+  #service_type: ClusterIP
+  #ingress_type: Route
+  #route_host: aap.apps.ocp.example.com
+  
   database:
     idle_disabled: false
     postgres_data_volume_init: false
+    # Optional: Will use default storageclass by default
+    #postgres_storage_class: nfs
   
   controller:
     disabled: false
   
   eda:
     disabled: false
-  
+
+  hub:
+    disabled: false
+    # If hub is enabled, make sure it has access to a RWX capable storageclass
+    file_storage_size: 20Gi
+    file_storage_storage_class: nfs
+    storage_type: file
+
   lightspeed:
     disabled: true
   

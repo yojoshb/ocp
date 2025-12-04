@@ -4,11 +4,11 @@ metadata:
   name: nfs
 spec:
   capacity:
-    storage: 100Gi
+    storage: 20Gi
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs
   nfs:
     path: /datastore/lab/aap-op-hub
-    server: 10.0.10.222
+    server: 172.16.10.1
