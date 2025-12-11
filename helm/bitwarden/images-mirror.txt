@@ -1,0 +1,16 @@
+# Images to mirror from the current latest Bitwarden chart 1.1.0
+
+ghcr.io/bitwarden/admin:2025.11.1
+ghcr.io/bitwarden/api:2025.11.1
+ghcr.io/bitwarden/attachments:2025.11.1
+ghcr.io/bitwarden/events:2025.11.1
+ghcr.io/bitwarden/icons:2025.11.1
+ghcr.io/bitwarden/identity:2025.11.1
+ghcr.io/bitwarden/notifications:2025.11.1
+ghcr.io/bitwarden/scim:2025.11.1
+ghcr.io/bitwarden/sso:2025.11.1
+ghcr.io/bitwarden/web:2025.11.4
+ghcr.io/bitwarden/mssqlmigratorutility:2025.11.1
+docker.io/alpine/openssl:3.5.2
+ghcr.io/bitwarden/helm-charts/kubectl:1.34
+mcr.microsoft.com/mssql/server:2022-CU12-ubuntu-22.04
