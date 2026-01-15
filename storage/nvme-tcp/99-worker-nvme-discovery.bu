@@ -1,0 +1,20 @@
+variant: openshift
+version: 4.19.0
+metadata:
+  name: 99-worker-nvme-discovery
+  labels:
+    machineconfiguration.openshift.io/role: worker
+openshift:
+  kernel_arguments:
+    - loglevel=7
+storage:
+  files:
+    - path: /etc/nvme/discovery.conf
+      mode: 0644
+      overwrite: true
+      contents:
+        inline: |
+          --transport=tcp --traddr=192.168.32.51 --trsvcid=8009
+          --transport=tcp --traddr=192.168.32.52 --trsvcid=8009
+          --transport=tcp --traddr=192.168.42.51 --trsvcid=8009
+          --transport=tcp --traddr=192.168.42.52 --trsvcid=8009
