@@ -5,8 +5,14 @@ metadata:
   namespace: openshift-storage
 spec:
   manageNodes: false
-  flexibleScaling: true
-  resources:
+  flexibleScaling: true    # <-- Allow scaling by node/host instead of by "rack" or by "zone"
+  #encryption:
+  #  clusterWide: true     # <-- This will use cryptsetup/LUKS for at-rest encryption
+  #managedResources:       # <-- Need to test if you can add default annotations
+  #  cephBlockPools:
+  #    defaultStorageClass: true
+  #    defaultVirtualizationStorageClass: true
+  resources:    # <-- Minimal Requirements: Could possibly remove if resourceProfile works
     mds:
       limits:
         cpu: "3"
@@ -15,25 +21,40 @@ spec:
         cpu: "3"
         memory: "8Gi"
   monDataDirHostPath: /var/lib/rook
+  #network:    # <-- Optional: multus network selectors
+  #  connections:
+  #    encryption: {}    # <-- This will set encryption in transit
+  #  multiClusterService: {}
+  #  provider: multus
+  #  selectors:
+  #    cluster: openshift-storage/odf-cluster-net
+  #    public: openshift-storage/odf-public-net
+  #resourceProfile: lean    # <-- Need to test if you can use prebuilt resourceProfiles
   storageDeviceSets:
-  - count: 3  # <-- Modify count to desired value. Count here means the no. of osd across the cluster.
+  - name: ocs-deviceset
+    config:
+      tuneFastDeviceClass: true    # <-- This helps when rota=[0|1] can't be trusted
+    count: 3             # <-- Modify count to desired value. Count here means the no. of OSD across the cluster. Should match the amount of disks in the CEPH pool
+    replica: 1           # <-- Here the count will always be 1 as flexible scaling is enabled.
+    deviceType: nvme     # <-- choices are: nvme, ssd, hdd
+    deviceClass: nvme    # <-- choices are: nvme, ssd, hdd
     dataPVCTemplate:
       spec:
+        storageClassName: localblock
         accessModes:
         - ReadWriteOnce
+        volumeMode: Block
         resources:
           requests:
-            storage: "100Gi"  # <-- This should be changed as per storage size. Minimum 100 GiB and Maximum 4 TiB
-        storageClassName: localblock
-        volumeMode: Block
-    name: ocs-deviceset
+            storage: "1"    # <-- This should be changed as per storage size. Minimum 100 GiB and Maximum 8 TiB i think??
     placement: {}
     portable: false
-    replica: 1      # <-- Here the count will always be 1 as flexible scaling is enabled.
-    resources:
+    resources:    # <-- Minimal Requirements: Could possibly remove if resourceProfile works
       limits:
         cpu: "2"
-        memory: "5Gi"
+        memory: "8Gi"
       requests:
         cpu: "2"
-        memory: "5Gi"
+        memory: "8Gi"
+  #multiCloudGateway:
+  #  disableLoadBalancerService: true     # <-- Set it to true to disable the MCG external service
