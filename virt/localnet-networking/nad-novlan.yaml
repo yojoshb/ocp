@@ -2,9 +2,9 @@ apiVersion: k8s.cni.cncf.io/v1
 kind: NetworkAttachmentDefinition
 metadata:
   annotations:
-    description: Basic bridge connection for VMs
+    description: Basic bridge connection for VMs with no VLAN tagging support
   name: bridge
-  namespace: default
+  namespace: default # The default namespace allows for all namspaces to use this NAD
 spec:
   config: |-
     {

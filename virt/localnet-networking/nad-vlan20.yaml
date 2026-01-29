@@ -4,7 +4,7 @@ metadata:
   annotations:
     description: VLAN 20 connection for VMs
   name: vlan20
-  namespace: default
+  namespace: default # The default namespace allows for all namspaces to use this NAD
 spec:
   config: |-
     {
