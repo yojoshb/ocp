@@ -11,4 +11,4 @@ https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html-
 ### Example diagram
 A basic secondary network, utilizing an ovs-bridge with localnet vlan mapping
 
-![basic-secondary-network](basic-secondary-network.svg/image.svg)
+![basic-secondary-network](basic-secondary-network.svg)
