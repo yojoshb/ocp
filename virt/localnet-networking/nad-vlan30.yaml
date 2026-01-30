@@ -1,0 +1,18 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  annotations:
+    description: VLAN 30 connection for VMs
+  name: vlan30
+  namespace: default # The default namespace allows for all namspaces to use this NAD
+spec:
+  config: |-
+    {
+      "cniVersion": "0.4.0", 
+      "name": "localnet-trunk", 
+      "topology": "localnet", 
+      "netAttachDefName": "default/vlan20",
+      "physicalNetworkName": "localnet-trunk",
+      "type": "ovn-k8s-cni-overlay",
+      "vlanID": 30
+    }

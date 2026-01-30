@@ -7,3 +7,8 @@ https://docs.redhat.com/en/documentation/openshift_container_platform/4.19/html-
 - After the bridge is defined, create `NetworkAttachmentDefinitions` for each VLAN, or use the `nad-novlan.yaml` to connect it to a single broadcast domain.
 
 - If using VLANs, the upstream physical switch interface must be set to trunk/tagged so the VLAN id's are encapsulated.
+
+### Example diagram
+A basic secondary network, utilizing an ovs-bridge with localnet vlan mapping
+
+![basic-secondary-network](basic-secondary-network.svg/image.svg)
