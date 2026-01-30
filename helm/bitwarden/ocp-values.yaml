@@ -8,7 +8,7 @@ general:
     enabled: false # OCP: Set to false to utilize Routes
     # Current supported values for ingress type include: nginx
     className: "nginx"
-     ## - Annotations to add to the Ingress resource.
+    ## - Annotations to add to the Ingress resource.
     annotations: {}
       # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
       # nginx.ingress.kubernetes.io/use-regex: "true"
