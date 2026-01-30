@@ -19,3 +19,5 @@ https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/managin
 https://access.redhat.com/solutions/7073579
 
 https://docs.netapp.com/us-en/netapp-solutions-virtualization/openshift/osv-trident-install.html#trident-configuration-for-on-prem-openshift-cluster
+
+https://docs.netapp.com/us-en/ontap-sanhost/nvme-rhel-9x.html

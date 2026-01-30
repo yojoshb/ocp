@@ -9,25 +9,22 @@ spec:
   no_log: true
   redis_mode: standalone
   image_pull_policy: IfNotPresent
-
   api:
     log_level: INFO
     replicas: 1
-  
   extra_settings:
     - setting: REDIRECT_IS_HTTPS
       value: '"True"'
 
-  # Optional: Will create a service and route automatically based on the 'metadata: name'
-  #service_type: ClusterIP
+  #service_type: ClusterIP # <-- Optional: If you choose to omit this, the CR will create a service and route automatically based on the 'metadata: name'
   #ingress_type: Route
-  #route_host: aap.apps.ocp.example.com
+  #route_host: aap.apps.ocp.example.com # <-- This is the full route URL to reach the platform
   
+  # Ansible Automation Platform Components
   database:
     idle_disabled: false
     postgres_data_volume_init: false
-    # Optional: Will use default storageclass by default
-    #postgres_storage_class: nfs
+    #postgres_storage_class: nfs # <-- Optional: Will use the clusters 'default' storageclass if not specified
   
   controller:
     disabled: false
@@ -37,9 +34,8 @@ spec:
 
   hub:
     disabled: false
-    # If hub is enabled, make sure it has access to a RWX capable storageclass
     file_storage_size: 20Gi
-    file_storage_storage_class: nfs
+    file_storage_storage_class: nfs # <-- If hub is enabled, make sure it has access to a RWX capable storageclass
     storage_type: file
 
   lightspeed:
