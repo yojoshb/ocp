@@ -4,7 +4,7 @@ metadata:
   name: ocp-nvme-tcp-policy
 spec:
   nodeSelector:
-     node-role.kubernetes.io/worker: ''
+    node-role.kubernetes.io/worker: ''
   desiredState:
     interfaces:
     - name: eno6.3032
