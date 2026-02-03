@@ -1,0 +1,25 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: worker3-storage-network-policy
+spec:
+  nodeSelector:
+    node-role.kubernetes.io/worker: ''
+    kubernetes.io/hostname: worker3.cluster.example.com
+  desiredState:
+    interfaces:
+    - name: eno6.3032
+      description: VLAN 3032 using eno6 - 192.168.243.62
+      type: vlan
+      state: up
+      ipv4:
+        enabled: true
+        dhcp: false
+        address:
+          - ip: 192.168.243.62
+            prefix-length: 26
+      ipv6:
+        enabled: false
+      vlan:
+        base-iface: eno6
+        id: 3032

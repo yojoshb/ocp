@@ -1,0 +1,21 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: ocp-nvme-tcp-static-2
+  namespace: trident
+spec:
+  config: |
+    {
+      "cniVersion": "0.3.1",
+      "type": "macvlan",
+      "master": "eno6.3032",
+      "ipam": {
+          "type": "static",
+          "addresses": [
+              {
+                  "address": "192.168.243.61/24",
+                  "gateway": "<your-gw>"
+              }
+          ]
+      }
+    }

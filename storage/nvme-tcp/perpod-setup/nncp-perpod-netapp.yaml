@@ -1,0 +1,21 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: ocp-nvme-tcp-policy
+spec:
+  nodeSelector:
+    node-role.kubernetes.io/worker: ''
+  desiredState:
+    interfaces:
+    - name: eno6.3032
+      description: VLAN 3032 using eno6 for NVMe over TCP
+      type: vlan
+      state: up
+      ipv4:
+        enabled: false
+        dhcp: false
+      ipv6:
+        enabled: false
+      vlan:
+        base-iface: eno6
+        id: 3032
