@@ -20,6 +20,8 @@ spec:
   #ingress_type: Route
   #route_host: aap.apps.ocp.example.com # <-- This is the full route URL to reach the platform
   
+  idle_aap: false # <-- Optional: Setting to true will scale all comonents down cleanly while still allowing jobs to finish
+
   # Ansible Automation Platform Components
   database:
     idle_disabled: false

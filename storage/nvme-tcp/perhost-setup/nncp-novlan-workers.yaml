@@ -1,0 +1,68 @@
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: worker1-storage-network-policy
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: worker1.cluster.example.com # Here we tell the nncp which node to apply it to
+  desiredState:
+    interfaces:
+    - name: eno2 # Whatever your interface is called
+      description: Storage network port using eno6 - 172.16.99.1 # You can give it a good description to logically map everything
+      type: ethernet
+      state: up
+      mtu: 9000
+      ipv4:
+        enabled: true
+        dhcp: false
+        address:
+          - ip: 172.16.99.1
+            prefix-length: 24
+      ipv6:
+        enabled: false
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: worker2-storage-network-policy
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: worker2.cluster.example.com # Here we tell the nncp which node to apply it to
+  desiredState:
+    interfaces:
+    - name: eno2 # Whatever your interface is called
+      description: Storage network port using eno6 - 172.16.99.2 # You can give it a good description to logically map everything
+      type: ethernet
+      state: up
+      mtu: 9000
+      ipv4:
+        enabled: true
+        dhcp: false
+        address:
+          - ip: 172.16.99.2
+            prefix-length: 24
+      ipv6:
+        enabled: false
+---
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: worker3-storage-network-policy
+spec:
+  nodeSelector:
+    kubernetes.io/hostname: worker3.cluster.example.com # Here we tell the nncp which node to apply it to
+  desiredState:
+    interfaces:
+    - name: eno2 # Whatever your interface is called
+      description: Storage network port using eno6 - 172.16.99.3 # You can give it a good description to logically map everything
+      type: ethernet
+      state: up
+      mtu: 9000
+      ipv4:
+        enabled: true
+        dhcp: false
+        address:
+          - ip: 172.16.99.3
+            prefix-length: 24
+      ipv6:
+        enabled: false

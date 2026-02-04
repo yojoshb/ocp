@@ -22,3 +22,5 @@ https://access.redhat.com/solutions/7073579
 https://docs.netapp.com/us-en/netapp-solutions-virtualization/openshift/osv-trident-install.html#trident-configuration-for-on-prem-openshift-cluster
 
 https://docs.netapp.com/us-en/ontap-sanhost/nvme-rhel-9x.html
+
+https://www.cisco.com/c/en/us/td/docs/unified_computing/ucs/UCS_CVDs/flexpod_rh_ocp_bm_xseries_manual.html
