@@ -6,8 +6,8 @@ Information will be placed here mainly for NVMe/TCP setup and best practices for
 
 - `99-worker-nvme-discovery.bu`: Generate discovery file, not sure if needed for Trident
 - `99-worker-nvme-gen-hostnqn-hostid.yaml`: MachineConfig to generate correct NVMe Hostnqn and NVMe Hostid for NVMe/TCP kernel driver
-- `perpod-setup`: Networking Configs to map static IP NAD's to the underlying host VLAN interface
-- `perhost-setup`: Networking Configs for the node NIC to apply static VLAN networking to host interfaces
+- `perhost-setup`: (Default behavior for CSI) Networking Configs for the node NIC to apply static IPs VLAN taqgged or not, networking to host interfaces
+    - `perpod-setup`: Networking Configs to map static IP NAD's to the underlying host VLAN interface, and applied per pod
 
 
 #### Various docs and links to reference

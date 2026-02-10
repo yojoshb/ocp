@@ -14,7 +14,7 @@ storage:
       overwrite: true
       contents:
         inline: |
-          --transport=tcp --traddr=192.168.32.51 --trsvcid=8009
-          --transport=tcp --traddr=192.168.32.52 --trsvcid=8009
-          --transport=tcp --traddr=192.168.42.51 --trsvcid=8009
-          --transport=tcp --traddr=192.168.42.52 --trsvcid=8009
+          --transport=tcp --traddr=192.168.18.51 --trsvcid=8009
+          --transport=tcp --traddr=192.168.18.52 --trsvcid=8009
+          --transport=tcp --traddr=192.168.18.53 --trsvcid=8009
+          --transport=tcp --traddr=192.168.18.54 --trsvcid=8009

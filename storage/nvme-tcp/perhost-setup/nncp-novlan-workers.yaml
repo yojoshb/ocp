@@ -3,7 +3,7 @@ kind: NodeNetworkConfigurationPolicy
 metadata:
   name: worker1-storage-network-policy
 spec:
-  nodeSelector:
+  nodeSelector: # Use node selectors to target nodes with specific IP addresses
     kubernetes.io/hostname: worker1.cluster.example.com # Here we tell the nncp which node to apply it to
   desiredState:
     interfaces:
@@ -11,12 +11,12 @@ spec:
       description: Storage network port using eno6 - 172.16.99.1 # You can give it a good description to logically map everything
       type: ethernet
       state: up
-      mtu: 9000
+      mtu: 9000 # Optional: Set the MTU on the iface
       ipv4:
         enabled: true
         dhcp: false
         address:
-          - ip: 172.16.99.1
+          - ip: 172.16.99.1 # The IP address of this node on the vlan
             prefix-length: 24
       ipv6:
         enabled: false
@@ -27,11 +27,11 @@ metadata:
   name: worker2-storage-network-policy
 spec:
   nodeSelector:
-    kubernetes.io/hostname: worker2.cluster.example.com # Here we tell the nncp which node to apply it to
+    kubernetes.io/hostname: worker2.cluster.example.com
   desiredState:
     interfaces:
-    - name: eno2 # Whatever your interface is called
-      description: Storage network port using eno6 - 172.16.99.2 # You can give it a good description to logically map everything
+    - name: eno2
+      description: Storage network port using eno6 - 172.16.99.2
       type: ethernet
       state: up
       mtu: 9000
@@ -50,11 +50,11 @@ metadata:
   name: worker3-storage-network-policy
 spec:
   nodeSelector:
-    kubernetes.io/hostname: worker3.cluster.example.com # Here we tell the nncp which node to apply it to
+    kubernetes.io/hostname: worker3.cluster.example.com
   desiredState:
     interfaces:
-    - name: eno2 # Whatever your interface is called
-      description: Storage network port using eno6 - 172.16.99.3 # You can give it a good description to logically map everything
+    - name: eno2
+      description: Storage network port using eno6 - 172.16.99.3
       type: ethernet
       state: up
       mtu: 9000
