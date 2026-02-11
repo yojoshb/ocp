@@ -4,7 +4,6 @@ metadata:
   name: worker1-storage-network-policy
 spec:
   nodeSelector: # Use node selectors to target nodes with specific IP addresses
-    node-role.kubernetes.io/worker: '' # Optional: Useful selector for role specific selections
     kubernetes.io/hostname: worker1.cluster.example.com # Here we tell the nncp which node to apply it to
   desiredState:
     interfaces:
@@ -39,7 +38,6 @@ metadata:
   name: worker2-storage-network-policy
 spec:
   nodeSelector:
-    node-role.kubernetes.io/worker: ''
     kubernetes.io/hostname: worker2.cluster.example.com
   desiredState:
     interfaces:
@@ -74,7 +72,6 @@ metadata:
   name: worker3-storage-network-policy
 spec:
   nodeSelector:
-    node-role.kubernetes.io/worker: ''
     kubernetes.io/hostname: worker3.cluster.example.com
   desiredState:
     interfaces:
