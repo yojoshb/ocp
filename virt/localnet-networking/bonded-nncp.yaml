@@ -51,6 +51,7 @@ spec:
           mcast-snooping-enable: false # Change to true to enable multicast snooping, default is false 
         port:
         - name: bond1
+    
     ovn:
       bridge-mappings: # Map the ovs bridge to a localnet, example here is called localnet-trunk
       - localnet: localnet-trunk

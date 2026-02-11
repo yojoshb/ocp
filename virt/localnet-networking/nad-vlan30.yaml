@@ -10,8 +10,9 @@ spec:
     {
       "cniVersion": "0.4.0", 
       "name": "localnet-trunk", 
-      "topology": "localnet", 
-      "netAttachDefName": "default/vlan20",
+      "topology": "localnet",
+      "mtu": 1500,
+      "netAttachDefName": "default/vlan30",
       "physicalNetworkName": "localnet-trunk",
       "type": "ovn-k8s-cni-overlay",
       "vlanID": 30

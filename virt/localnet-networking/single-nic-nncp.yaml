@@ -7,7 +7,15 @@ spec:
     node-role.kubernetes.io/worker: '' 
   desiredState:
     interfaces:
-    - name: ovs-br1 
+    - name: ens224 # Set interface to up
+      type: ethernet
+      state: up
+      ipv4:
+        enabled: false
+      ipv6:
+        enabled: false
+    
+    - name: ovs-br1 # Create the OVS bridge on the ens224 ethernet interface
       description: |-
         A dedicated OVS bridge with ens224 as a port
         allowing all VLANs and untagged traffic
@@ -20,8 +28,9 @@ spec:
           mcast-snooping-enable: false # Change to true to enable multicast snooping, default is false 
         port:
         - name: ens224
+    
     ovn:
-      bridge-mappings:
+      bridge-mappings: # Map the ovs bridge to a localnet, example here is called localnet-trunk
       - localnet: localnet-trunk
         bridge: ovs-br1 
         state: present 
