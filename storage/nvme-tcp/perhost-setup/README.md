@@ -41,8 +41,8 @@ spec:
       ipv6:
         enabled: false
       vlan:
-        base-iface: eno2 # Whatever your interface is called
-        id: 18 # The vlan tag to assign
+        base-iface: eno2
+        id: 18
 ```
 
 2. Delete the nncp from the cluster
