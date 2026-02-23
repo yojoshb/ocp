@@ -3,7 +3,7 @@
 > **WIP**
 
 - `nncp-vlan-workers`: NodeNetworkConfigurationPolicy for each host in one file, with static networking applied to the NIC on a specific VLAN. This expects that the NICs are on a trunk/tagged switchport for proper vlan encapsulation.
-- `nncp-novlan-workers`: NodeNetworkConfigurationPolicy for each host in one file, with static networking defined on the NIC and mtu set to 9000. This expects that the NICs are on a access/untagged switchport as no vlan encapsulation is being done on the host.
+- `nncp-novlan-workers`: NodeNetworkConfigurationPolicy for each host in one file, with static networking defined on the NIC. This expects that the NICs are on a access/untagged switchport as no vlan encapsulation is being done on the host.
 
 ### Remove nncp's procedure
 
