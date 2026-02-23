@@ -126,7 +126,7 @@ cleanup() {
 
 init_conf() {
   cat <<EOF > $(pwd)/example-mirror.conf
-# Example configuration file. All variables are necessary, honestly just use a diff tool lol
+# Example configuration file. All variables are required
 
 # List of images to pull with tags, otherwise latest is assumed
 IMAGES=(
@@ -188,7 +188,7 @@ if $conf_required; then
     exit 1
   fi
 
-  # Catch $2 as the config file, source it, and make sure it's valid to some degree
+  # Catch $2 as the config file, source it, and make sure it exists and readable
   CONF="$2"
   if [[ ! -f "$CONF" ]]; then echo -e "${RED}Config file not found: $CONF${NC}"; exit 1; fi
   if [[ ! -r "$CONF" ]]; then echo -e "${RED}Config file is not readable: $CONF${NC}"; exit 1; fi
