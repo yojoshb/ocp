@@ -1,3 +1,6 @@
+## Uninstall Docs
+Link: https://docs.redhat.com/en/documentation/red_hat_openshift_data_foundation/4.19/html/deploying_openshift_data_foundation_in_external_mode/uninstalling-openshift-data-foundation-external-in-external-mode_rhodf
+
 ## Erase disk that was an ODF/CEPH OSD.
 Link: https://access.redhat.com/solutions/7115651
 
