@@ -1,0 +1,29 @@
+kind: LDAPSyncConfig
+apiVersion: v1
+url: ldap://idm.lab.io:389
+insecure: true
+groupUIDNameMapping:
+  "cn=ocp-admins,cn=groups,cn=accounts,dc=kemo,dc=labs": ocp-admins
+  "cn=ocp-users,cn=groups,cn=accounts,dc=kemo,dc=labs": ocp-users
+bindDN: uid=ldap_bind,cn=users,cn=accounts,dc=lab,dc=io
+bindPassword: ldapbind
+#ca: cert.pem
+rfc2307:
+  groupsQuery:
+    baseDN: "cn=groups,cn=accounts,dc=lab,dc=io"
+    scope: sub
+    derefAliases: never
+    pageSize: 0
+    filter: (|(cn=ocp-admins)(cn=ocp-users))
+  groupUIDAttribute: dn 
+  groupNameAttributes: [ cn ] 
+  groupMembershipAttributes: [ member ]
+  usersQuery:
+    baseDN: "cn=users,cn=accounts,dc=lab,dc=io"
+    scope: sub
+    derefAliases: never
+    pageSize: 0
+  userUIDAttribute: dn
+  userNameAttributes: [ uid ]
+  tolerateMemberNotFoundErrors: true
+  tolerateMemberOutOfScopeErrors: true
