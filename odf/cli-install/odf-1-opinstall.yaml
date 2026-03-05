@@ -12,7 +12,7 @@ metadata:
   name: ocs-operator
   namespace: openshift-storage
 spec:
-  channel: "stable-4.19"  # <-- Channel should be modified depending on the OCS version to be installed. Please ensure to maintain compatibility with OCP version
+  channel: "stable-4.20"  # <-- Channel should be modified depending on the OCS version to be installed. Please ensure to maintain compatibility with OCP version
   installPlanApproval: Automatic
   name: ocs-operator
   source: redhat-operators  # <-- Modify the name of the redhat-operators catalogsource if not default
@@ -24,7 +24,7 @@ metadata:
   name: odf-operator
   namespace: openshift-storage
 spec:
-  channel: "stable-4.19" # <-- Channel should be modified depending on the OCS version to be installed. Please ensure to maintain compatibility with OCP version
+  channel: "stable-4.20" # <-- Channel should be modified depending on the OCS version to be installed. Please ensure to maintain compatibility with OCP version
   installPlanApproval: Automatic
   name: odf-operator
   source: redhat-operators  # <-- Modify the name of the redhat-operators catalogsource if not default

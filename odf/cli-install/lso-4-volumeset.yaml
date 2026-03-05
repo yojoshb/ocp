@@ -13,11 +13,11 @@ spec:
               - ""
   storageClassName: localblock
   volumeMode: Block
-  maxDeviceCount: 6  # <-- Optional: Maximum number of devices per node to be used
+  #maxDeviceCount: 6  # <-- Optional: Maximum number of devices per node to be used
   deviceInclusionSpec:
     deviceTypes:
     - disk
     deviceMechanicalProperties:
     - NonRotational
-    #minSize: 0Ti   # <-- Uncomment and modify to limit the minimum size of disk used
+    minSize: 2Ti   # <-- Uncomment and modify to limit the minimum size of disk used
     #maxSize: 0Ti   # <-- Uncomment and modify to limit the maximum size of disk used
