@@ -6,9 +6,9 @@ Information will be placed here mainly for NVMe/TCP setup and best practices
 
 - `hpe-csi`: https://scod.hpedev.io/welcome/index.html
 - `trident-csi`: https://docs.netapp.com/us-en/netapp-solutions-virtualization/openshift/osv-trident-install.html#trident-configuration-for-on-prem-openshift-cluster
-- `machine-configs`: Not sure if needed for CSI, but here for sanity
+- `machine-configs`: Not sure if needed for every CSI, but here for sanity
 - `host-network`: (Default behavior for CSI) Networking Configs for the node NIC to apply static IPs VLAN tagged or not, networking to host interfaces
-    - `perpod-network`: Networking Configs to map static IP NAD's to the underlying host VLAN interface, and applied per pod
+    - `perpod-network`: Networking Configs to map static IP NAD's to the underlying host VLAN interface, and applied per pod. Most, if not all, CSI's will use host networking.
 
 
 #### Various docs and links to reference

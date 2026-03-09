@@ -2,8 +2,92 @@
 
 > **WIP**
 
-Information will be placed here mainly for HPE-CSI NVMe/TCP setup and best practices for the **HPE Alletra Storage MP B10000**
+Information will be placed here mainly for HPE-CSI NVMe/TCP setup and best practices for the **HPE Alletra Storage MP B10000**. Only one VLAN can be on a controller at a time when doing NVME/TCP multi-pathing.
 
+### Network/CoreOS Prereqs 
+
+- hostnqn/hostid will need to be configured via `MachineConfig` to generate correct NVMe Hostnqn and NVMe Hostid for NVMe/TCP kernel driver
+```yaml
+apiVersion: machineconfiguration.openshift.io/v1
+kind: MachineConfig
+metadata:
+  labels:
+    machineconfiguration.openshift.io/role: worker
+  name: 99-worker-nvme-gen-hostnqn-hostid
+spec:
+  config:
+    ignition:
+      version: 3.4.0
+    systemd:
+      units:
+        - contents: |
+            [Unit]
+            Description=CoreOS Generate NVMe Hostnqn
+            Documentation=https://bugzilla.redhat.com/show_bug.cgi?id=2049991#c2
+            Before=nvmefc-boot-connection.service
+            [Service]
+            Type=oneshot
+            ExecStart=/usr/bin/sh -c 'nvme gen-hostnqn > /etc/nvme/hostnqn'
+            RemainAfterExit=yes
+            [Install]
+            WantedBy=multi-user.target
+          enabled: true
+          name: nvme-gen-hostnqn.service
+        - contents: |
+            [Unit]
+            Description=CoreOS Generate NVMe Hostid
+            Documentation=https://bugzilla.redhat.com/show_bug.cgi?id=2049991#c2
+            Before=nvmefc-boot-connection.service
+            [Service]
+            Type=oneshot
+            ExecStart=/usr/bin/sh -c 'dmidecode -s system-uuid > /etc/nvme/hostid'
+            RemainAfterExit=yes
+            [Install]
+            WantedBy=multi-user.target
+          enabled: true
+          name: nvme-gen-hostid.service
+```
+
+- If using dedicated network interfaces, they will need to be configured using `NodeNetworkConfigurationPolicy` via NMState Operator. A NNCP for one targeted worker node below, using eno2 and eno3, applying static IP addresses to the node NICs on the storage VLANs.
+```yaml
+apiVersion: nmstate.io/v1
+kind: NodeNetworkConfigurationPolicy
+metadata:
+  name: worker1-storage-network-policy
+spec:
+  nodeSelector: # Use node selectors to target nodes with specific IP addresses
+    kubernetes.io/hostname: worker1.cluster.example.com # Here we tell the nncp which node to apply it to
+  desiredState:
+    interfaces:
+    - name: eno2 # Whatever your interface is called
+      description: Storage network port using eno2 - 172.16.101.1 # You can give it a good description to logically map everything
+      type: ethernet
+      state: up
+      mtu: 9000 # Optional: Set the MTU on the iface
+      ipv4:
+        enabled: true
+        dhcp: false
+        address:
+          - ip: 172.16.101.1 # The IP address of this node on the vlan
+            prefix-length: 24
+      ipv6:
+        enabled: false
+    - name: eno3 # Whatever your interface is called
+      description: Storage network port using eno3 - 172.16.102.1 # You can give it a good description to logically map everything
+      type: ethernet
+      state: up
+      mtu: 9000 # Optional: Set the MTU on the iface
+      ipv4:
+        enabled: true
+        dhcp: false
+        address:
+          - ip: 172.16.102.1 # The IP address of this node on the vlan
+            prefix-length: 24
+      ipv6:
+        enabled: false
+```
+
+### CSI Install
 - Reference https://scod.hpedev.io/welcome/index.html
 
 1. Create the namespace: https://scod.hpedev.io/csi_driver/partners/redhat_openshift/index.html#prerequisites
