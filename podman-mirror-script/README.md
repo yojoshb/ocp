@@ -1,4 +1,4 @@
-A quick and dirty way to mirror images using podman for low-to-high scenarios utilizing a list of images and settings within a target `<config_file>` file.
+A quick and easy way to mirror images using podman for low-to-high scenarios utilizing a list of images and settings within a target `<config_file>` file. Best to use oc mirror for this process.
 
 ### Usage
 ```bash
@@ -19,7 +19,7 @@ A quick and dirty way to mirror images using podman for low-to-high scenarios ut
 |map|<config_file>|Print the tree formatted mapping from public source to private registry based on <config_file>|
 |mirror|<config_file>|Print the image names of the mirrored containers based on <config_file>|
 |-i, init||Create example-mirror.conf config file|
-|-h, help||Show this help message|
+|-h, help||Show the help message|
 
 ### Basic config file structure
 

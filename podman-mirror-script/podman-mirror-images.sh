@@ -165,7 +165,7 @@ Commands:
   d2m <config_file>     Disk to Mirror: Load the images from disk, then push them to your registry
   clean <config_file>   Delete all local images that are specified in <config_file>, from your host
   values <config_file>  Show the configured values from <config_file>
-  map <config_file>     Print the tree formatted mapping from public source to private registry based on <config_file> | Note: this may not be 100% accurate depending on how the target registry handles namespaces
+  map <config_file>     Print the tree formatted mapping from public registry to private registry based on <config_file> | Note: this may not be 100% accurate depending on how the target registry handles namespaces
   mirror <config_file>  Print the image names of the mirrored containers based on <config_file> | Note: this may not be 100% accurate depending on how the target registry handles namespaces
 
   -i, init              Create example-mirror.conf config file
