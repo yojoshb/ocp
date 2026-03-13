@@ -52,7 +52,7 @@ show_mirrorimages() {
 img_pull() {
   echo -e "${BLU}Pulling images${NC}"
   for image in ${IMAGES[@]}; do
-    podman pull -q $image
+    podman pull -q --tls-verify=$TLS_VERIFY $image
     local exit_code=$?
     log_status "Pulled $image" $exit_code
     if [ "$exit_code" -ne 0 ]; then
