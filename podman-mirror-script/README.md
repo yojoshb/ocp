@@ -1,4 +1,4 @@
-A quick and easy way to mirror images using podman for low-to-high scenarios utilizing a list of images and settings within a target `<config_file>` file. Best to use oc mirror for this process.
+A quick and easy way to mirror images using podman for low-to-high scenarios utilizing a list of images and settings within a target `<config_file>` file. Best to use [oc mirror](https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/disconnected_environments/about-installing-oc-mirror-v2) for this process instead.
 
 ### Usage
 ```bash
