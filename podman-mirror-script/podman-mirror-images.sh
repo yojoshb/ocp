@@ -137,7 +137,7 @@ docker.io/jenkins/jenkins:jdk21
 # Registry to mirror to, can add namespaces if permissions allow. Do not include trailing /
 TARGET_REGISTRY="registry.example.com/foo"
 
-# boolean true or false, Sets the --tls-verify flag on podman push
+# boolean true or false, Sets the --tls-verify flag on podman pull and push
 TLS_VERIFY=false
 
 # Path to tarball to save and load images from

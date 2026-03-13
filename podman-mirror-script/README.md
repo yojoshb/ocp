@@ -5,7 +5,9 @@ A quick and dirty way to mirror images using podman for low-to-high scenarios ut
 ./podman-mirror-images.sh [command] <config_file>
 ```
 
-### Commands `./podman-mirror-images.sh -h`
+### Commands 
+
+`./podman-mirror-images.sh -h`
 
 |Command|Argument|Description|
 |-|-|-|
@@ -20,6 +22,9 @@ A quick and dirty way to mirror images using podman for low-to-high scenarios ut
 |-h, help||Show this help message|
 
 ### Basic config file structure
+
+`./podman-mirror-images.sh -i`
+
 ```bash
 # Example configuration file. All variables are required
 
