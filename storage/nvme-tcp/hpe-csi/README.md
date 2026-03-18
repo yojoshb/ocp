@@ -2,7 +2,7 @@
 
 > **WIP**
 
-Information will be placed here mainly for HPE-CSI NVMe/TCP setup and best practices for the **HPE Alletra Storage MP B10000**. Only one VLAN can be on a controller at a time when doing NVME/TCP multi-pathing.
+Information will be placed here mainly for HPE-CSI NVMe/TCP setup and best practices for the **HPE Alletra Storage MP B10000**. Only one VLAN can be on a controller at a time when doing NVME/TCP multi-pathing. [Known Issues](https://github.com/hpe-storage/csi-driver/blob/master/release-notes/v3.1.0.md#known-issues)
 
 ### Network/CoreOS Prereqs 
 
