@@ -1,0 +1,12 @@
+apiVersion: compliance.openshift.io/v1alpha1
+kind: TailoredProfile
+metadata:
+  name: rhcos4-stig-tailored
+  namespace: openshift-compliance
+spec:
+  description: Tailored profile for my Org
+  extends: rhcos4-stig
+  title: RHCOS4 STIG profile disables sshd login
+  disableRules:
+    - name: rhcos4-service-sshd-disabled
+      rationale: Needed for troubleshooting during network testing
