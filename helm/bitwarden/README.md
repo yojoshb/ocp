@@ -14,7 +14,7 @@ helm pull bitwarden/self-host --untar
 wget https://bitwarden.com/assets/330r6BrWsFLL9FLZbPSLIc/badadefadd43ce575fd5f42221155786/rawManifests.yaml
 ```
 
-## Mirror required images. Feel free to use my janky script, do it manually, or use oc-mirror
+## Mirror required images. Feel free to use my [janky script](../../podman-mirror-script/), do it manually, or use oc-mirror
 - If using the script, edit the conf file a bit and mirror away..
 ```bash
 ./podman-mirror-images.sh m2d mirror-bitwarden.conf

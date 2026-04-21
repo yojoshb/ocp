@@ -106,7 +106,7 @@ oc apply -f hpe-csi-scc.yaml
 
 3. Install via Operator or Helm
 - [Operator](https://scod.hpedev.io/csi_driver/partners/redhat_openshift/index.html#overview): The Operator is the recommended approach, but currently (v3.0.2 latest) doesn't have NVMe/TCP support
-- [Helm](https://artifacthub.io/packages/helm/hpe-storage/hpe-csi-driver): Helm is *unsupported*, but provides NVMe/TCP support on v3.1.0-beta. Only the Helm chart supports the beta-releases.
+- [Helm](https://artifacthub.io/packages/helm/hpe-storage/hpe-csi-driver): Helm is *unsupported* on OpenShift but HPE will support installation and configuration. Only the Helm chart supports the beta-releases, which is unsupported by both HPE and Red Hat for production.
 
 4. Create a yaml file to configure backend Secrets: https://scod.hpedev.io/csi_driver/using.html
 ```yaml
