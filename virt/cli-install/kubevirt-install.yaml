@@ -30,10 +30,11 @@ spec:
   liveMigrationConfig:
     allowAutoConverge: false
     allowPostCopy: false
-    completionTimeoutPerGiB: 150
+    completionTimeoutPerGiB: 800
     parallelMigrationsPerCluster: 5
     parallelOutboundMigrationsPerNode: 2
     progressTimeout: 150
+  # network: migration-bridge # Here you can specify a NAD for a secondary network for live migration
   resourceRequirements:
     vmiCPUAllocationRatio: 10
   uninstallStrategy: BlockUninstallIfWorkloadsExist
@@ -46,3 +47,5 @@ spec:
     workloadUpdateMethods:
     - LiveMigrate
   workloads: {}
+# Other possible spec
+# vmStateStorageClass: my-storage-class # Used for persistent vTPM storage

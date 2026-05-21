@@ -3,9 +3,9 @@
 You might have alerts firing from Prometheus like: `Prometheus operator in openshift-user-workload-monitoring namespace rejected <number> prometheus/ServiceMonitor resources.`
 
 - This is from Prometheus attempting to scrape metrics from a platform namespace that doesn't have monitoring configured. You can fix it by applying the monitoring label to the affected namespace.
-- This normally happens when you don't check the box `Enable Operator recommended cluster monitoring on this Namespace` when installing the Operator, or an Operator was installed as a dependency and didn't recieve the label correctly (bug imo). 
+- This normally happens when you don't check the box `Enable Operator recommended cluster monitoring on this Namespace` when installing the Operator, or an Operator was installed as a dependency and didn't receive the label correctly (this is a bug imo). 
 
-> NOTE: This is only valable for platform namespaces and you cannot set this label to a custom application namespace, which is not supported.
+> NOTE: This is only available for platform namespaces and you cannot set this label to a custom application namespace, which is not supported.
 
 ```bash
 # This occured because ODF installed the local-storage-operator as a dependency and the label did not get set correctly

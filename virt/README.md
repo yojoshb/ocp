@@ -1,5 +1,7 @@
 ## KubeVirt bridge/localnet network example
 
+https://docs.redhat.com/en/documentation/openshift_container_platform/4.20/html/virtualization/postinstallation-configuration#virt-post-install-network-config
+
 1. Install the Kubernetes NMState Operator
 2. Optionally, create a namespace that virtual machines will utilize
 3. Configure Secondary Network(s) for virtual machine traffic
