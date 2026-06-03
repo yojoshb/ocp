@@ -9,12 +9,12 @@ spec: {}
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription
 metadata:
-  name: ocs-operator
+  name: odf-dependencies
   namespace: openshift-storage
 spec:
-  channel: "stable-4.20"  # <-- Channel should be modified depending on the OCS version to be installed. Please ensure to maintain compatibility with OCP version
+  channel: "stable-4.20" 
   installPlanApproval: Automatic
-  name: ocs-operator
+  name: odf-dependencies
   source: redhat-operators  # <-- Modify the name of the redhat-operators catalogsource if not default
   sourceNamespace: openshift-marketplace
 ---
@@ -24,7 +24,7 @@ metadata:
   name: odf-operator
   namespace: openshift-storage
 spec:
-  channel: "stable-4.20" # <-- Channel should be modified depending on the OCS version to be installed. Please ensure to maintain compatibility with OCP version
+  channel: "stable-4.20"
   installPlanApproval: Automatic
   name: odf-operator
   source: redhat-operators  # <-- Modify the name of the redhat-operators catalogsource if not default
