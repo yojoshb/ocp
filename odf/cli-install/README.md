@@ -14,10 +14,11 @@ Other handy read: https://github.com/johnsimcall/openshift-notes/blob/main/odf-w
     - Check for PV creation: `oc get pv -n openshift-local-storage`
 
 ### Install the ODF Operator
-1. Create ODF namespace openshift-storage, subscribe to ocs-operator and odf-operator: `oc apply -f odf-1-opinstall.yaml`
+1. Create ODF namespace openshift-storage, subscribe to odf-operator: `oc apply -f odf-1-opinstall.yaml`
 2. Create the storage cluster: Modify this resource for your cluster `oc apply -f odf-2-createcluster.yaml`
     - Verify pods are up and running: `oc get pods -n openshift-storage`
     - List CSV to see status: `oc get csv -n openshift-storage`
+    - Check status of the rollout: `oc get storagecluster -n openshift-storage`, `oc wait storagecluster -n openshift-storage ocs-storagecluster --for=condition=ready`
 
 ### Test PVC creation
 ```bash

@@ -6,17 +6,14 @@ metadata:
   name: openshift-storage
 spec: {}
 ---
-apiVersion: operators.coreos.com/v1alpha1
-kind: Subscription
+apiVersion: operators.coreos.com/v1
+kind: OperatorGroup
 metadata:
-  name: odf-dependencies
+  name: odf-operator-group
   namespace: openshift-storage
 spec:
-  channel: "stable-4.20" 
-  installPlanApproval: Automatic
-  name: odf-dependencies
-  source: redhat-operators  # <-- Modify the name of the redhat-operators catalogsource if not default
-  sourceNamespace: openshift-marketplace
+  targetNamespaces:
+  - openshift-storage
 ---
 apiVersion: operators.coreos.com/v1alpha1
 kind: Subscription

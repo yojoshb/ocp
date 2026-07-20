@@ -1,4 +1,4 @@
-OpenShift comes with NFS capabilities out of the box, for using a NFS mountpoint for persistent storage. However, this cannot dynamically create persistent volume's dynamically. The `nfs-subdir-external-provisioner` allows this behavior and is generally muh easier to utilize. 
+OpenShift comes with NFS capabilities out of the box, for using a NFS mountpoint for persistent storage. However, this cannot dynamically create persistent volume's dynamically. The `nfs-subdir-external-provisioner` allows this behavior and is generally much easier to utilize. 
 
 Make sure your NFS server is accessible from your Kubernetes cluster and get the information you need to connect to it. At a minimum you will need its hostname.
 

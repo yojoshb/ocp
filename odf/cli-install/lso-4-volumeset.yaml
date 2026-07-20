@@ -7,10 +7,10 @@ spec:
   nodeSelector:
     nodeSelectorTerms:
       - matchExpressions:
-          - key: cluster.ocs.openshift.io/openshift-storage
-            operator: In
-            values:
-              - ""
+        - key: cluster.ocs.openshift.io/openshift-storage
+          operator: In
+          values:
+            - ""
   storageClassName: localblock
   volumeMode: Block
   #maxDeviceCount: 6  # <-- Optional: Maximum number of devices per node to be used

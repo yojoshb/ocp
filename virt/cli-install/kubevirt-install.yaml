@@ -48,4 +48,4 @@ spec:
     - LiveMigrate
   workloads: {}
 # Other possible spec
-# vmStateStorageClass: my-storage-class # Used for persistent vTPM storage
+# vmStateStorageClass: my-storage-class # Used for persistent vTPM storage, should be RWX for HA and type: Filesystem

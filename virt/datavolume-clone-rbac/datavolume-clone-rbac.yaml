@@ -1,0 +1,41 @@
+---
+# Example DataVolume clone role
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: datavolume-cloner
+rules:
+- apiGroups: ["cdi.kubevirt.io"]
+  resources: ["datavolumes/source"]
+  verbs: ["*"]
+---
+# Example ISO store to target virtual-machines
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: allow-datavolume-clone-to-virtual-machines-ns
+  namespace: vm-iso    # namespace where ISO's or DataVolumes live
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: virtual-machines    # namespace where the vm's will be instantiated 
+roleRef:
+  kind: ClusterRole
+  name: datavolume-cloner    # reference to the above ClusterRole
+  apiGroup: rbac.authorization.k8s.io
+
+#---
+# Example dev to prod
+#apiVersion: rbac.authorization.k8s.io/v1
+#kind: RoleBinding
+#metadata:
+#  name: allow-rhel9datavolume-clone-dev-to-prod
+#  namespace: rhel9-development    # namespace where ISO's or DataVolumes live
+#subjects:
+#- kind: ServiceAccount
+#  name: default
+#  namespace: rhel9-production    # namespace where the vm's will be instantiated 
+#roleRef:
+#  kind: ClusterRole
+#  name: datavolume-cloner    # reference to the above ClusterRole
+#  apiGroup: rbac.authorization.k8s.io
