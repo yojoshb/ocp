@@ -1,0 +1,21 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: catalogsource-reader
+rules:
+- apiGroups: ["operators.coreos.com"]
+  resources: ["catalogsources"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: catalogsource-binding
+subjects:
+- kind: Group # Change to 'User' or 'Group' depending on your identity
+  name: ocp-virt-admins
+  namespace: openshift-marketplace
+roleRef:
+  kind: ClusterRole
+  name: catalogsource-reader
+  apiGroup: rbac.authorization.k8s.io

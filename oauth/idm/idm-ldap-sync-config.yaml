@@ -3,10 +3,11 @@ apiVersion: v1
 url: ldap://idm.lab.io:389
 insecure: true
 groupUIDNameMapping:
-  "cn=ocp-admins,cn=groups,cn=accounts,dc=kemo,dc=labs": ocp-admins
-  "cn=ocp-users,cn=groups,cn=accounts,dc=kemo,dc=labs": ocp-users
+  "cn=ocp-admins,cn=groups,cn=accounts,dc=lab,dc=io": ocp-admins
+  "cn=ocp-virt-admins,cn=groups,cn=accounts,dc=lab,dc=io": ocp-virt-admins
+  "cn=ocp-users,cn=groups,cn=accounts,dc=lab,dc=io": ocp-users
 bindDN: uid=ldap_bind,cn=users,cn=accounts,dc=lab,dc=io
-bindPassword: ldapbind
+bindPassword: <ldapbind>
 #ca: cert.pem
 rfc2307:
   groupsQuery:
@@ -14,7 +15,7 @@ rfc2307:
     scope: sub
     derefAliases: never
     pageSize: 0
-    filter: (|(cn=ocp-admins)(cn=ocp-users))
+    filter: (|(cn=ocp-admins)(cn=ocp-virt-admins)(cn=ocp-users))
   groupUIDAttribute: dn 
   groupNameAttributes: [ cn ] 
   groupMembershipAttributes: [ member ]
