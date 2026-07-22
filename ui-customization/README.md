@@ -1,5 +1,5 @@
 ## OpenShift Console Banner
-Edit the provided yaml file, then apply it
+Edit the provided yaml file, then apply it. In case you wanna look up color codes: https://htmlcolorcodes.com/
 ```bash
 oc apply -f consolebanner.yaml
 ```
