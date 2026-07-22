@@ -1,0 +1,9 @@
+apiVersion: console.openshift.io/v1
+kind: ConsoleNotification
+metadata:
+  name: banner
+spec:
+  backgroundColor: '#00FF00'  # Color in hex
+  color: '#000000'            
+  location: BannerTop         # Choices are BannerTop, BannerBottom, BannerTopBottom, AlertBanner
+  text: 'Cool banner dude'
