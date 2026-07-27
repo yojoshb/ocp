@@ -1,6 +1,8 @@
 ## Red Hat Offline Knowledge Portal on OpenShift
 https://developers.redhat.com/articles/2025/10/03/how-deploy-offline-knowledge-portal-openshift
 
+https://docs.redhat.com/en/documentation/red_hat_offline_knowledge_portal/1/install-make_red_hat_expert_knowledge_available_in_offline_environments
+
 ### 1. Login and download the image
 Requires a Satellite Subscription. Also need to generate a Access Key: https://access.redhat.com/offline/access
 
@@ -16,6 +18,8 @@ podman pull registry.redhat.io/offline-knowledge-portal/rhokp-rhel9:latest
 podman save --format oci-archive -o rhokp.tar registry.redhat.io/offline-knowledge-portal/rhokp-rhel9:latest
 ```
 
+- Make sure to save and bring your key with you: `echo "my-access-key-87wgerkhsdbf9w867yfg" > rhokp-key.txt`
+
 ### 2. Move the image to the high-side and load it
 ```bash
 podman load -i rhokp.tar
@@ -24,6 +28,7 @@ podman load -i rhokp.tar
 ```bash
 podman push registry.redhat.io/offline-knowledge-portal/rhokp-rhel9:latest registry.example.com/offline-knowledge-portal/rhokp-rhel9:latest
 ```
+- Might have to add a `--remove-signatures` to your podman command if signatures aren't mirrored. Pretty sure if you omit the `--format` on the podman save signatures will stay in tact.. need to test, or just use skopeo  
 
 ### 3. Deploy on the cluster
 ```bash
@@ -35,50 +40,16 @@ oc new-project rhokp
 oc create secret generic access-key --from-literal=access-key=<YOUR_ACCESS_KEY> -n rhokp
 ```
 
-- Create the Deployment, service, and route
+- Create the Deployment, service, and route. See example `rhokop.yaml`, customize to your hearts content
 ```bash
-apiVersion: v1
-kind: Service
-metadata:
-  name: rhokp
-  namespace: rhokp
-spec:
-  selector:
-    app: rhokp
-  ports:
-    - protocol: TCP
-      port: 8080
-      targetPort: 8080
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: rhokp
-  namespace: rhokp
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: rhokp
-  template:
-    metadata:
-      labels:
-        app: rhokp
-    spec:
-      containers:
-        - name: rhokp
-          image: registry.example.com/offline-knowledge-portal/rhokp-rhel9:latest # Change to your actual registry
-          env:
-            - name: ONLINE_VIEW
-              value: 'false'
-            - name: UNCLASSIFIED_BANNER
-              value: 'true'
-            - name: ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: access-key
-                  key: access-key
-          ports:
-            - containerPort: 8080
-              protocol: TCP
+oc create -f rhokp.yaml
+```
+
+- It'll take a bit for it to spin up, the image is around 10Gb
+
+- Get the route
+```bash
+oc get route -n rhokp
+NAME    HOST/PORT              PATH   SERVICES   PORT   TERMINATION     WILDCARD
+rhokp   docs.apps.ocp.lab.io          rhokp      8080   edge/Redirect   None
 ```

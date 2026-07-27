@@ -1,0 +1,64 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rhokp
+  namespace: rhokp
+spec:
+  selector:
+    app: rhokp
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: rhokp
+  namespace: rhokp
+  labels:
+    app: rhokp
+spec:
+  host: docs.apps.ocp.lab.io # Change host to whatever you want the URL to be
+  to:
+    kind: Service
+    name: rhokp
+    weight: 100
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rhokp
+  namespace: rhokp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rhokp
+  template:
+    metadata:
+      labels:
+        app: rhokp
+    spec:
+      containers:
+        - name: rhokp
+          image: registry.lab.io:8443/offline-knowledge-portal/rhokp-rhel9:latest # Change to your actual registry
+          env:
+            - name: ONLINE_VIEW # Optional
+              value: 'false'
+            - name: UNCLASSIFIED_BANNER # Optional
+              value: 'true'
+            - name: ACCESS_KEY # Reference the secret with your access key
+              valueFrom:
+                secretKeyRef:
+                  name: access-key
+                  key: access-key
+          ports:
+            - containerPort: 8080
+              protocol: TCP
