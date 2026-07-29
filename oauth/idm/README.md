@@ -40,7 +40,7 @@ dnf install -y openldap-clients
 # Look specifically for your bind account, this will give you the correct bindDN
 ldapsearch -x -H ldap://idm.lab.io -s sub "(uid=ldap_bind)"
 ```
-
+> LDAPS will not work on systems using self signed SSL certs
 - Get clusterroles
 ```bash
 oc get clusterroles
