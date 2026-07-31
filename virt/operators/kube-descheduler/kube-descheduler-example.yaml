@@ -1,0 +1,29 @@
+apiVersion: operator.openshift.io/v1
+kind: KubeDescheduler
+metadata:
+  name: cluster
+  namespace: openshift-kube-descheduler-operator
+spec:
+  managementState: Managed
+  deschedulingIntervalSeconds: 30
+  mode: Automatic # Mode configures the descheduler to either evict pods (Automatic) or to simulate the eviction (Predictive)
+  profiles:
+    - KubeVirtRelieveAndMigrate
+  profileCustomizations:
+    devEnableSoftTainter: true # Enables the soft-tainting component to dynamically apply or remove soft taints as scheduling hints.
+
+    devDeviationThresholds: AsymmetricLow
+    # Treats nodes with below-average resource usage as underutilized to help redistribute workloads from overutilized nodes. Do not use this field with devLowNodeUtilizationThresholds. 
+    # Supported values are: Low (10%:10%), Medium (20%:20%), High (30%:30%), AsymmetricLow (0%:10%), AsymmetricMedium (0%:20%), AsymmetricHigh (0%:30%).
+
+    devActualUtilizationProfile: PrometheusCPUMemoryCombinedProfile 
+    # Enables load-aware descheduling.
+    #
+    # PrometheusCPUMemoryCombinedProfile (default): 
+    # Balances nodes based on CPU utilization, CPU PSI pressure, memory utilization, and memory PSI pressure. 
+    # This profile is ideal for environments with memory overcommit enabled, as it spreads the load and prevents resource contention.
+    #
+    # PrometheusCPUCombined: 
+    # Balances nodes based on CPU utilization and CPU PSI pressure only. 
+    # Use this profile in environments without memory overcommit, where memory allocations are strictly guaranteed and CPU pressure is the primary driver for workload distribution.
+
