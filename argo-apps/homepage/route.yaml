@@ -11,7 +11,7 @@ metadata:
     app.kubernetes.io/part-of: homepage-server
     app.kubernetes.io/runtime-version: latest
 spec:
-  host: home.apps.ocp.lab.io # The route url for your service
+  host: home.apps.sno.home.lan # The route url for your service
   to:
     kind: Service
     name: homepage
